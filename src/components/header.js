@@ -100,7 +100,10 @@ export const Header = () => {
 								</a>
 							</li>
 							<li className='my-2'>
-								<a className='sd-link'>
+								<a
+									className='sd-link'
+									target='_blank'
+									href='https://www.timeanddate.com/weather/@8174582/historic'>
 									{' '}
 									<i className='fa fa-info-circle' aria-hidden='true'></i> Info
 									Cuaca
