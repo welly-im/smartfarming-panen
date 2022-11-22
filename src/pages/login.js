@@ -18,25 +18,6 @@ export default function Login() {
   formLogin.append("password", password);
 
   const handleSubmit = () => {
-    // axios({
-    //   method: "post",
-    //   url: `${urlPost}login.php`,
-    //   headers: {
-    //     Accept: "application/json",
-    //     "content-type": "application/json",
-    //   },
-    //   data: formLogin,
-    // }).then((response) => {
-    //   Cookies.set("nama_pengguna", response.data.nama_pengguna);
-    //   Cookies.set("id_pengguna", response.data.id_pengguna);
-    //   Cookies.set("jabatan", response.data.jabatan);
-    //   if (response.data.jabatan == 1) {
-    //     navigate("/dashboard");
-    //   } else {
-    //     navigate("/salah");
-    //   }
-    // });
-
     fetch(`${urlPost}login.php`, {
       method: "POST",
       body: formLogin,
@@ -52,12 +33,6 @@ export default function Login() {
           navigate("/salah");
         }
       });
-
-
-    // const data = new FormData(e.target);
-    // const username = data.get("username");
-    // const password = data.get("password");
-    // console.log(data, username, password);
   };
 
   return (
@@ -88,7 +63,7 @@ export default function Login() {
             }}
           >
             <Form.Group controlId="formUsername">
-              <Form.Label>Nama Pengguna</Form.Label>
+              <Form.Label>Nama pengguna</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Masukkan Nama Pengguna"
@@ -97,8 +72,8 @@ export default function Login() {
                 }}
               />
             </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+            <Form.Group controlId="formBasicPassword" className="mt-3">
+              <Form.Label>Kata sandi</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Masukkan Kata Sandi"
