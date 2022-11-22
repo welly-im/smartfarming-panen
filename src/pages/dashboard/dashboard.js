@@ -6,13 +6,22 @@ import { useAtom } from "jotai";
 
 export default function Dashboard() {
   const [urlGet, setUrlGet] = useAtom(apiGet);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    total_berat: "0",
+    total_sorting_bagus: "0",
+    total_sorting_jelek: "0",
+    total_berat_fermentasi: "0",
+    total_berat_penjemuran: "0",
+    total_berat_stok: "0" ,
+    total_berat_kopi_tanpa_kulit_grade_1: "0",
+    total_berat_kopi_tanpa_kulit_grade_2: "0",
+    total_berat_kopi_tanpa_kulit_grade_3: "0",
+  });
 
   useEffect(() => {
     axios
       .get(`${urlGet}infodashboard`)
       .then((res) => {
-        console.log(res.data);
         setData(res.data);
       })
       .catch((err) => {
@@ -24,7 +33,9 @@ export default function Dashboard() {
     <>
       <div>
         <Header />
-        <div className="container my-4">
+        { data.total_berat !== "0" ? (
+          <>
+            <div className="container my-4">
           <div className="row">
             <div className="col-md-4">
               <div className="card">
@@ -32,10 +43,20 @@ export default function Dashboard() {
                   <h5 className="card-title m-0">Kopi Dipanen</h5>
                   <p className="card-text">Hasil panen kopi (2022)</p>
                   <h1 className="card-text">
-                    {data.total_berat
+                    {
+                      data ? (
+                        <>
+                        {data.total_berat
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                     kg
+                        </>
+                      ) : (
+                        <>
+                        0 kg
+                        </>
+                      )
+                    }
                   </h1>
                   <div className="row">
                     <divs>
@@ -60,10 +81,20 @@ export default function Dashboard() {
                   <h5 className="card-title m-0">Kopi Sorting Bagus</h5>
                   <p className="card-text">Hasil sortingan bagus</p>
                   <h1 className="card-text">
-                    {data.total_sorting_bagus
+                    {
+                      data ? (
+                        <>
+                        {data.total_sorting_bagus
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                     kg
+                        </>
+                      ) : (
+                        <>
+                        0 kg
+                        </>
+                      )
+                    }
                   </h1>
                   <div className="row">
                     <div>
@@ -81,10 +112,20 @@ export default function Dashboard() {
                   <h5 className="card-title m-0">Kopi Sorting Jelek</h5>
                   <p className="card-text">Hasil sortingan jelek</p>
                   <h1 className="card-text">
-                    {data.total_sorting_jelek
+                    {
+                      data ? (
+                        <>
+                        {data.total_sorting_jelek
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                     kg
+                        </>
+                      ) : (
+                        <>
+                        0 kg
+                        </>
+                      )
+                    }
                   </h1>
                   <div className="row">
                     <div>
@@ -115,10 +156,20 @@ export default function Dashboard() {
                         Stok kopi yang tersedia saat ini
                       </p>
                       <h1 className="card-text">
-                        {data.total_berat_stok
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                        kg
+                        {
+                          data ? (
+                            <>
+                            {data.total_berat_stok
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                            kg
+                            </>
+                          ) : (
+                            <>
+                            0 kg
+                            </>
+                          )
+                        }
                       </h1>
                       <div className="row">
                         <div>
@@ -133,10 +184,19 @@ export default function Dashboard() {
                         <div className="card-body shadow bg-white rounded">
                           <h5 className="card-title m-0">Grade A</h5>
                           <h1 className="card-text mt-4">
-                            {data.total_berat_kopi_tanpa_kulit_grade_1
+                            {
+                              data ? (
+                                <>
+                                {data.total_berat_kopi_tanpa_kulit_grade_1
                               .toString()
                               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                            kg
+                            kg  </>
+                              ) : (
+                                <>
+                                0 kg
+                                </>
+                              )
+                              }                         
                           </h1>
                         </div>
                       </div>
@@ -146,10 +206,19 @@ export default function Dashboard() {
                         <div className="card-body shadow bg-white rounded">
                           <h5 className="card-title m-0">Grade B</h5>
                           <h1 className="card-text mt-4">
-                            {data.total_berat_kopi_tanpa_kulit_grade_2
+                           {
+                              data ? (
+                                <>
+                                {data.total_berat_kopi_tanpa_kulit_grade_2
                               .toString()
                               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                            kg
+                            kg  </>
+                              ) : (
+                                <>
+                                0 kg
+                                </>
+                              )
+                              }    
                           </h1>
                         </div>
                       </div>
@@ -159,10 +228,19 @@ export default function Dashboard() {
                         <div className="card-body shadow bg-white rounded">
                           <h5 className="card-title m-0">Grade C</h5>
                           <h1 className="card-text mt-4">
-                            {data.total_berat_kopi_tanpa_kulit_grade_3
+                            {
+                              data ? (
+                                <>
+                                {data.total_berat_kopi_tanpa_kulit_grade_3
                               .toString()
                               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                            kg
+                            kg  </>
+                              ) : (
+                                <>
+                                0 kg
+                                </>
+                              )
+                              }    
                           </h1>
                         </div>
                       </div>
@@ -183,13 +261,21 @@ export default function Dashboard() {
                         Kopi yang sedang diproses saat ini
                       </p>
                       <h1 className="card-text">
-                        {(
+                       {
+                              data ? (
+                                <>
+                                 {(
                           parseInt(data.total_berat_fermentasi) +
                           parseInt(data.total_berat_penjemuran)
                         )
                           .toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                         kg
+                                </>
+                              ) : (
+                                <>0 kg</>
+                              )
+                       }
                       </h1>
                       <div className="row">
                         <div>
@@ -204,10 +290,16 @@ export default function Dashboard() {
                         <div className="card-body shadow bg-white rounded">
                           <h5 className="card-title m-0">Fermentasi</h5>
                           <h1 className="card-text mt-4">
-                            {data.total_berat_fermentasi
+                            {
+                              data ? (<>
+                              {data.total_berat_fermentasi
                               .toString()
                               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                             kg
+                              </>): (<>
+                              0 kg
+                              </>)
+                            }
                           </h1>
                         </div>
                       </div>
@@ -217,10 +309,16 @@ export default function Dashboard() {
                         <div className="card-body shadow bg-white rounded">
                           <h5 className="card-title m-0">Penjemuran</h5>
                           <h1 className="card-text mt-4">
-                            {data.total_berat_penjemuran
+                           {
+                              data ? (<>
+                              {data.total_berat_penjemuran
                               .toString()
                               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                             kg
+                              </>): (<>
+                              0 kg
+                              </>)
+                           }
                           </h1>
                         </div>
                       </div>
@@ -231,6 +329,11 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+          </> ) : (
+            <>
+            <h1> Loading... </h1>
+            </>
+            )}
       </div>
     </>
   );

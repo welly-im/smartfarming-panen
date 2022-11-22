@@ -18,24 +18,41 @@ export default function Login() {
   formLogin.append("password", password);
 
   const handleSubmit = () => {
-    axios({
-      method: "post",
-      url: `${urlPost}/login.php`,
-      headers: {
-        Accept: "application/json",
-        "content-type": "application/json",
-      },
-      data: formLogin,
-    }).then((response) => {
-      Cookies.set("nama_pengguna", response.data.nama_pengguna);
-      Cookies.set("id_pengguna", response.data.id_pengguna);
-      Cookies.set("jabatan", response.data.jabatan);
-      if (response.data.jabatan == 1) {
-        navigate("/dashboard");
-      } else {
-        navigate("/salah");
-      }
-    });
+    // axios({
+    //   method: "post",
+    //   url: `${urlPost}login.php`,
+    //   headers: {
+    //     Accept: "application/json",
+    //     "content-type": "application/json",
+    //   },
+    //   data: formLogin,
+    // }).then((response) => {
+    //   Cookies.set("nama_pengguna", response.data.nama_pengguna);
+    //   Cookies.set("id_pengguna", response.data.id_pengguna);
+    //   Cookies.set("jabatan", response.data.jabatan);
+    //   if (response.data.jabatan == 1) {
+    //     navigate("/dashboard");
+    //   } else {
+    //     navigate("/salah");
+    //   }
+    // });
+
+    fetch(`${urlPost}login.php`, {
+      method: "POST",
+      body: formLogin,
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        Cookies.set("nama_pengguna", response.nama_pengguna);
+        Cookies.set("id_pengguna", response.id_pengguna);
+        Cookies.set("jabatan", response.jabatan);
+        if (response.jabatan == 1) {
+          navigate("/dashboard");
+        } else {
+          navigate("/salah");
+        }
+      });
+
 
     // const data = new FormData(e.target);
     // const username = data.get("username");
