@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Login from '../src/pages/login';
 import Dashboard from '../src/pages/dashboard/dashboard';
@@ -8,11 +8,6 @@ import { Panen } from './pages/panen/panen';
 import { Sorting } from './pages/sorting/sorting';
 
 function App() {
-	useEffect(() => {
-		if (Cookies.get('nama_pengguna') === undefined) {
-			return <Navigate to='/logindulu' />;
-		}
-	}, []);
 	return (
 		<BrowserRouter>
 			<div>
@@ -28,7 +23,7 @@ function App() {
 						<Route path='/logindulu' element={<LoginDulu />} />
 					)}
 					<Route exact path='/salah' element={<Salah />} />
-					<Route path='*' element={<Navigate to='/' />} />
+					<Route path='*' element={<Login />} />
 				</Routes>
 			</div>
 		</BrowserRouter>

@@ -21,8 +21,8 @@ export const Panen = () => {
 		<>
 			<Header />
 			<div className='container card p-4 mt-3'>
-				<h4>Data panen</h4>
 				<div className='card-body shadow bg-white rounded'>
+					<h4>Data panen</h4>
 					<Table striped bordered hover className='text-center'>
 						<thead>
 							<tr>
@@ -33,9 +33,9 @@ export const Panen = () => {
 								<th></th>
 							</tr>
 						</thead>
-						<tbody>
-							{data.length > 0 ? (
-								<>
+						{data.length > 0 ? (
+							<>
+								<tbody>
 									{data.map(item => {
 										return (
 											<tr key={item.id_panen}>
@@ -49,13 +49,13 @@ export const Panen = () => {
 											</tr>
 										);
 									})}
-								</>
-							) : (
-								<>
-									<h3>Loading...</h3>
-								</>
-							)}
-						</tbody>
+								</tbody>
+							</>
+						) : (
+							<>
+								<h3 className='mt-3 w-100'>Loading...</h3>
+							</>
+						)}
 					</Table>
 				</div>
 			</div>

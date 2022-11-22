@@ -324,7 +324,9 @@ export default function Dashboard() {
 					</>
 				) : (
 					<>
-						<h1> Loading... </h1>
+						<h2 className='mt-5 w-100 d-flex justify-content-center'>
+							Loading...
+						</h2>
 					</>
 				)}
 			</div>

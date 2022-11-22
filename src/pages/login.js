@@ -27,6 +27,7 @@ export default function Login() {
 				Cookies.set('jabatan', response.jabatan);
 				if (response.jabatan === '1') {
 					navigate('/dashboard');
+					window.location.reload();
 				} else {
 					navigate('/salah');
 				}
