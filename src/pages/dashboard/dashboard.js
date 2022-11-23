@@ -59,11 +59,7 @@ export default function Dashboard() {
 											<div className='row'>
 												<divs>
 													<a
-														className='btn'
-														style={{
-															backgroundColor: '#151515',
-															color: 'white',
-														}}
+														className='btn btn-secondary'
 														onClick={() => {
 															navigate('/panen');
 														}}>
@@ -94,7 +90,7 @@ export default function Dashboard() {
 											<div className='row'>
 												<div>
 													<a
-														className='btn btn-primary'
+														className='btn btn-success'
 														onClick={() => {
 															navigate('/sorting');
 														}}>
@@ -125,11 +121,7 @@ export default function Dashboard() {
 											<div className='row'>
 												<div>
 													<a
-														className='btn'
-														style={{
-															backgroundColor: '#4E0404',
-															color: 'white',
-														}}
+														className='btn btn-danger'
 														onClick={() => {
 															navigate('/sorting');
 														}}>
@@ -165,7 +157,7 @@ export default function Dashboard() {
 													</h1>
 													<div className='row'>
 														<div>
-															<a className='btn btn-primary'>Lihat Detail</a>
+															<a className='btn btn-success'>Lihat Detail</a>
 														</div>
 													</div>
 												</div>
@@ -267,7 +259,7 @@ export default function Dashboard() {
 													</h1>
 													<div className='row'>
 														<div>
-															<a className='btn btn-primary'>Lihat Detail</a>
+															<a className='btn btn-success'>Lihat Detail</a>
 														</div>
 													</div>
 												</div>

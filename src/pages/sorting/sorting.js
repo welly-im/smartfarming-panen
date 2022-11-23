@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Tabs, Tab, Table } from 'react-bootstrap';
+import { Tabs, Tab, Table, Button } from 'react-bootstrap';
 import { Header } from '../../components/header';
 import { apiGet } from '../../data/api';
 import { useAtom } from 'jotai';
@@ -8,6 +8,8 @@ export const Sorting = () => {
 	const [urlGet, setUrlGet] = useAtom(apiGet);
 	const [dataBagus, setDataBagus] = useState([]);
 	const [dataJelek, setDataJelek] = useState([]);
+	const [modalTambahDataBagusOpen, setModalTambahDataBagusOpen] =
+		useState(false);
 
 	useEffect(() => {
 		fetch(`${urlGet}getdatasortingbagus`)
@@ -73,6 +75,11 @@ export const Sorting = () => {
 									)}
 								</tbody>
 							</Table>
+							<div className='row d-flex flex-row-reverse me-2'>
+								<Button className='btn btn-success w-auto px-4'>
+									Tambah Sorting Bagus
+								</Button>
+							</div>
 						</Tab>
 						<Tab eventKey='SortingJelek' title='Sortingan Jelek'>
 							<Table striped bordered hover className='text-center'>
@@ -115,6 +122,11 @@ export const Sorting = () => {
 									)}
 								</tbody>
 							</Table>
+							<div className='row d-flex flex-row-reverse me-2'>
+								<Button className='btn btn-success w-auto px-4'>
+									Tambah Sorting Jelek
+								</Button>
+							</div>
 						</Tab>
 					</Tabs>
 				</div>

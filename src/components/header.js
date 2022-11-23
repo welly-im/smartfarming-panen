@@ -16,7 +16,7 @@ export const Header = () => {
 		Cookies.remove('nama_pengguna');
 		Cookies.remove('id_pengguna');
 		Cookies.remove('jabatan');
-		navigate('/login');
+		navigate('/');
 	};
 
 	return (
