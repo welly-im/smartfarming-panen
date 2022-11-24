@@ -25,6 +25,16 @@ export const Panen = () => {
 	formNewDataPanen.append('tanggal_panen', tanggalPanenBaru);
 	formNewDataPanen.append('id_pengguna', Cookies.get('id_pengguna'));
 
+	const [idPanenEdit, setIdPanenEdit] = useState('');
+	const [beratPanenEdit, setBeratPanenEdit] = useState('');
+	const [tanggalPanenEdit, setTanggalPanenEdit] = useState('');
+
+	const formEditDataPanen = new FormData();
+	formEditDataPanen.append('id_panen', idPanenEdit);
+	formEditDataPanen.append('berat', beratPanenEdit);
+	formEditDataPanen.append('tanggal_panen', tanggalPanenEdit);
+	formEditDataPanen.append('id_pengguna', Cookies.get('id_pengguna'));
+
 	useEffect(() => {
 		fetch(`${urlGet}datapanen`)
 			.then(response => response.json())
@@ -52,6 +62,7 @@ export const Panen = () => {
 			.then(response => {
 				if (response.status === '1') {
 					setModalTambahDataOpen(false);
+					alert('Data berhasil ditambahkan');
 					window.location.reload();
 				} else if (response.status === '0') {
 					alert(response.pesan);
@@ -62,6 +73,55 @@ export const Panen = () => {
 			.catch(err => {
 				alert('Ada kesalahan, silahkan coba lagi!');
 			});
+	};
+
+	const onSubmitEditData = () => {
+		fetch(`${urlPost}panen/editdatapanen.php`, {
+			method: 'POST',
+			body: formEditDataPanen,
+		})
+			.then(response => response.json())
+			.then(response => {
+				if (response.status === '1') {
+					setModalEditDataOpen(false);
+					alert('Data berhasil diubah!');
+					window.location.reload();
+				} else if (response.status === '0') {
+					alert(response.pesan);
+				} else {
+					alert('Ada kesalahan, silahkan coba lagi!');
+				}
+			})
+			.catch(err => {
+				alert('Ada kesalahan, silahkan coba lagi!');
+			});
+	};
+
+	const handleHapusData = () => {
+		const confirmDelete = window.confirm(
+			`Apakah anda yakin, mengapus ID : ${idPanenEdit}?`
+		);
+		if (confirmDelete) {
+			fetch(`${urlPost}panen/hapusdatapanen.php`, {
+				method: 'POST',
+				body: formEditDataPanen,
+			})
+				.then(response => response.json())
+				.then(response => {
+					if (response.status === '1') {
+						setModalEditDataOpen(false);
+						alert('Data berhasil dihapus!');
+						window.location.reload();
+					} else if (response.status === '0') {
+						alert(response.pesan);
+					} else {
+						alert('Ada kesalahan, silahkan coba lagi!');
+					}
+				})
+				.catch(err => {
+					alert('Ada kesalahan, silahkan coba lagi!');
+				});
+		}
 	};
 
 	return (
@@ -133,22 +193,26 @@ export const Panen = () => {
 				centered>
 				<Modal.Header closeButton>
 					<Modal.Title>
-						<div>Detail ID Panen : {dataModalEditData.id_panen}</div>
+						<div>Detail ID Panen : {idPanenEdit}</div>
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<div className='mx-5 my-2'>
-						<Form>
+						<Form
+							onSubmit={e => {
+								e.preventDefault();
+								onSubmitEditData();
+							}}>
 							<Form.Group className='mb-3'>
 								<Form.Label>ID Panen</Form.Label>
 								<Form.Control
 									type='text'
 									placeholder='Masukkkan ID Panen'
-									defaultValue={dataModalEditData.id_panen}
+									value={idPanenEdit}
 								/>
 								<Form.Text className='text-muted'>
-									Ubah ID Panen jika tanggal saat data dimasukkan bukan tanggal
-									hari ini.
+									ID Panen tidak dapat diubah, silahkan hapus data jika ingin
+									mengubah data!
 								</Form.Text>
 							</Form.Group>
 							<Form.Group className='mb-3'>
@@ -156,15 +220,21 @@ export const Panen = () => {
 								<Form.Control
 									type='number'
 									placeholder='Masukkkan Berat'
-									defaultValue={dataModalEditData.berat}
+									defaultValue={beratPanenEdit}
+									onChange={e => setBeratPanenEdit(e.target.value)}
 								/>
 							</Form.Group>
 							<Form.Group className='mb-3'>
 								<Form.Label>Tanggal panen</Form.Label>
 								<Form.Control
 									placeholder='Masukkkan tanggal panen'
-									defaultValue={dataModalEditData.tanggal_panen}
+									defaultValue={tanggalPanenEdit}
+									onChange={e => setTanggalPanenEdit(e.target.value)}
 								/>
+								<Form.Text className='text-muted'>
+									Tanggal yang di masukkan harus sesuai format
+									tahun-bulan-tanggal!
+								</Form.Text>
 							</Form.Group>
 							<Form.Group className='mb-3'>
 								<Form.Label>Pengelola</Form.Label>
@@ -175,11 +245,21 @@ export const Panen = () => {
 								/>
 							</Form.Group>
 							<div className='row mx-1 d-flex justify-content-between mt-3'>
-								<Button variant='primary' type='submit' className='px-4 w-auto'>
-									Edit & Simpan
-								</Button>
+								<div className='w-auto'>
+									<Button variant='primary' type='submit' className='px-4'>
+										Edit & Simpan
+									</Button>
+									<Button
+										variant='danger'
+										className='px-4 ms-5'
+										onClick={() => {
+											handleHapusData();
+										}}>
+										Hapus
+									</Button>
+								</div>
 								<Button
-									variant='danger'
+									variant='secondary'
 									onClick={closeModalEditData}
 									className='px-4 w-auto ms-5'>
 									Tutup
@@ -224,6 +304,9 @@ export const Panen = () => {
 													<button
 														className='btn btn-warning'
 														onClick={() => {
+															setIdPanenEdit(item.id_panen);
+															setBeratPanenEdit(item.berat);
+															setTanggalPanenEdit(item.web_tanggal_panen);
 															setDataModalEditData(item);
 															setModalEditDataOpen(true);
 														}}>
