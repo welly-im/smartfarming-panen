@@ -144,7 +144,7 @@ export default function Dashboard() {
 														Stok kopi yang tersedia saat ini
 													</p>
 													<h1 className='card-text'>
-														{data ? (
+														{data && data.total_berat_stok !== null ? (
 															<>
 																{data.total_berat_stok
 																	.toString()
@@ -152,7 +152,7 @@ export default function Dashboard() {
 																kg
 															</>
 														) : (
-															<>0 kg</>
+															<> 0 kg</>
 														)}
 													</h1>
 													<div className='row'>
@@ -243,12 +243,28 @@ export default function Dashboard() {
 														Kopi yang sedang diproses saat ini
 													</p>
 													<h1 className='card-text'>
-														{data ? (
+														{data &&
+														data.total_berat_fermentasi !== null &&
+														data.total_berat_penjemuran !== null ? (
 															<>
 																{(
 																	parseInt(data.total_berat_fermentasi) +
 																	parseInt(data.total_berat_penjemuran)
 																)
+																	.toString()
+																	.replace(/\B(?=(\d{3})+(?!\d))/g, '.')}{' '}
+																kg
+															</>
+														) : data.total_berat_fermentasi !== null ? (
+															<>
+																{parseInt(data.total_berat_fermentasi)
+																	.toString()
+																	.replace(/\B(?=(\d{3})+(?!\d))/g, '.')}{' '}
+																kg
+															</>
+														) : data.total_berat_penjemuran !== null ? (
+															<>
+																{parseInt(data.total_berat_penjemuran)
 																	.toString()
 																	.replace(/\B(?=(\d{3})+(?!\d))/g, '.')}{' '}
 																kg
@@ -268,7 +284,8 @@ export default function Dashboard() {
 														<div className='card-body shadow bg-white rounded'>
 															<h5 className='card-title m-0'>Fermentasi</h5>
 															<h1 className='card-text mt-4'>
-																{data ? (
+																{data &&
+																data.total_berat_fermentasi !== null ? (
 																	<>
 																		{data.total_berat_fermentasi
 																			.toString()
@@ -290,7 +307,8 @@ export default function Dashboard() {
 														<div className='card-body shadow bg-white rounded'>
 															<h5 className='card-title m-0'>Penjemuran</h5>
 															<h1 className='card-text mt-4'>
-																{data ? (
+																{data &&
+																data.total_berat_penjemuran !== null ? (
 																	<>
 																		{data.total_berat_penjemuran
 																			.toString()
