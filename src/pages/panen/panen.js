@@ -99,7 +99,7 @@ export const Panen = () => {
 
 	const handleHapusData = () => {
 		const confirmDelete = window.confirm(
-			`Apakah anda yakin, mengapus ID : ${idPanenEdit}?`
+			`Apakah anda yakin, menghapus ID : ${idPanenEdit}?`
 		);
 		if (confirmDelete) {
 			fetch(`${urlPost}panen/hapusdatapanen.php`, {
@@ -281,7 +281,7 @@ export const Panen = () => {
 							maxHeight: '350px',
 							marginBottom: '1%',
 						}}>
-						{data.length > 0 ? (
+						{data !== null && data.length > 0 ? (
 							<Table striped bordered hover className='text-center'>
 								<thead>
 									<tr>
@@ -320,7 +320,7 @@ export const Panen = () => {
 							</Table>
 						) : (
 							<>
-								<h3 className='mt-3 w-100'>Loading...</h3>
+								<h3 className='mt-3 w-100'>Tidak ada data panen...</h3>
 							</>
 						)}
 					</div>

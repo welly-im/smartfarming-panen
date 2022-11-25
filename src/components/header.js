@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import './header.css';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
 	let navigate = useNavigate();
 	const [isOpen, setIsopen] = useState(false);
+	const [pilihPengolahan, setPilihPengolahan] = useState(false);
 
 	const ToggleSidebar = () => {
 		isOpen === true ? setIsopen(false) : setIsopen(true);
@@ -21,6 +22,38 @@ export const Header = () => {
 
 	return (
 		<>
+			<Modal
+				show={pilihPengolahan}
+				onHide={() => setPilihPengolahan(false)}
+				size='md'
+				aria-labelledby='contained-modal-title-vcenter'
+				centered>
+				<Modal.Header closeButton>
+					<Modal.Title>
+						<div>Pilih Jenis Sortingan</div>
+					</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<div className='row px-3'>
+						<div className='col-6'>
+							<Button
+								variant='outline-success'
+								className='w-100'
+								onClick={() => navigate('/pengolahanpremium')}>
+								Kopi Sortingan Premium
+							</Button>
+						</div>
+						<div className='col-6'>
+							<Button
+								variant='outline-danger'
+								className='w-100'
+								onClick={() => navigate('/pengolahanstandard')}>
+								Kopi Sortingan Standard
+							</Button>
+						</div>
+					</div>
+				</Modal.Body>
+			</Modal>
 			<div className='container-fluid mt-3'>
 				<nav className='navbar navbar-expand-lg navbar-light bg-white shadow-md'>
 					<div className='container-fluid py-2 px-4'>
@@ -77,7 +110,11 @@ export const Header = () => {
 								</a>
 							</li>
 							<li className='my-2'>
-								<a className='sd-link'>
+								<a
+									className='sd-link'
+									onClick={() => {
+										setPilihPengolahan(true);
+									}}>
 									<i className='fa fa-folder-open-o' aria-hidden='true'></i>{' '}
 									Data Pengolahan Kopi
 								</a>

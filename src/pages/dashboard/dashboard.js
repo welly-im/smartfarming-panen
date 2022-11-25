@@ -45,7 +45,7 @@ export default function Dashboard() {
 											<h5 className='card-title m-0'>Kopi Dipanen</h5>
 											<p className='card-text'>Hasil panen kopi (2022)</p>
 											<h1 className='card-text'>
-												{data ? (
+												{data && data.total_berat !== null ? (
 													<>
 														{data.total_berat
 															.toString()
@@ -76,7 +76,7 @@ export default function Dashboard() {
 											<h5 className='card-title m-0'>Kopi Sorting Bagus</h5>
 											<p className='card-text'>Hasil sortingan bagus</p>
 											<h1 className='card-text'>
-												{data ? (
+												{data && data.total_sorting_bagus !== null ? (
 													<>
 														{data.total_sorting_bagus
 															.toString()
@@ -107,7 +107,7 @@ export default function Dashboard() {
 											<h5 className='card-title m-0'>Kopi Sorting Jelek</h5>
 											<p className='card-text'>Hasil sortingan jelek</p>
 											<h1 className='card-text'>
-												{data ? (
+												{data && data.total_sorting_jelek !== null ? (
 													<>
 														{data.total_sorting_jelek
 															.toString()
@@ -335,7 +335,7 @@ export default function Dashboard() {
 				) : (
 					<>
 						<h2 className='mt-5 w-100 d-flex justify-content-center'>
-							Loading...
+							Tidak ada data...
 						</h2>
 					</>
 				)}

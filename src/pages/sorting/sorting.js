@@ -11,15 +11,18 @@ export const Sorting = () => {
 	const [dataPanen, setDataPanen] = useState([]);
 	const [dataBagus, setDataBagus] = useState([]);
 	const [dataJelek, setDataJelek] = useState([]);
+	const [dataDetail, setDataDetail] = useState([]);
+	const [dataDetailPanen, setDataDetailPanen] = useState([]);
 	const [modalPilihID, setModalPilihID] = useState(false);
 	const [modalTambahDataOpen, setModalTambahDataOpen] = useState(false);
 	const [modalDetailPanen, setModalDetailPanen] = useState(false);
+	const [modalDetail, setModalDetail] = useState(false);
 
 	const [idSortingBagusBaru, setIdSortingBagusBaru] = useState(
-		'SBA' + new Date().toISOString().slice(0, 10).replace(/-/g, '')
+		'PRM' + new Date().toISOString().slice(0, 10).replace(/-/g, '')
 	);
 	const [idSortingJelekBaru, setIdSortingJelekBaru] = useState(
-		'SJE' + new Date().toISOString().slice(0, 10).replace(/-/g, '')
+		'STD' + new Date().toISOString().slice(0, 10).replace(/-/g, '')
 	);
 	const [beratBagusBaru, setBeratBagusBaru] = useState('');
 	const [beratJelekBaru, setBeratJelekBaru] = useState('');
@@ -87,6 +90,10 @@ export const Sorting = () => {
 					alert('Gagal menambahkan data, ada kesalahan!');
 				});
 		}
+	};
+
+	const modalDetailSortingJelek = () => {
+		setModalDetail(true);
 	};
 
 	return (
@@ -176,11 +183,11 @@ export const Sorting = () => {
 									<div className='card'>
 										<div className='card-body shadow bg-white rounded'>
 											<Form.Group>
-												<Form.Label>ID Sorting bagus</Form.Label>
+												<Form.Label>ID Sorting premium</Form.Label>
 												<Form.Control
 													type='text'
 													defaultValue={
-														'SBA' +
+														'PRM' +
 														new Date()
 															.toISOString()
 															.slice(0, 10)
@@ -202,11 +209,11 @@ export const Sorting = () => {
 									<div className='card mt-3'>
 										<div className='card-body shadow bg-white rounded'>
 											<Form.Group>
-												<Form.Label>ID Sorting jelek</Form.Label>
+												<Form.Label>ID Sorting standard</Form.Label>
 												<Form.Control
 													type='text'
 													defaultValue={
-														'SJE' +
+														'STD' +
 														new Date()
 															.toISOString()
 															.slice(0, 10)
@@ -274,6 +281,133 @@ export const Sorting = () => {
 				</Modal.Body>
 			</Modal>
 
+			<Modal
+				show={modalDetail}
+				onHide={() => setModalDetail(false)}
+				size='lg'
+				backdrop='static'
+				aria-labelledby='contained-modal-title-vcenter'
+				centered>
+				<Modal.Header closeButton>
+					<Modal.Title>
+						<div>Edit ID Sorting : {dataDetailPanen.id_sorting}</div>
+					</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<div className='row'>
+						<div className='col-6'>
+							<div className='my-2'>
+								<Form
+									onSubmit={e => {
+										e.preventDefault();
+										onSubmitTambahDataSorting();
+									}}>
+									<div className='card'>
+										<div className='card-body shadow bg-white rounded'>
+											<Form.Group>
+												<Form.Label>ID Sorting</Form.Label>
+												<Form.Control
+													type='text'
+													value={dataDetailPanen.id_sorting}
+													onChange={e => setIdSortingBagusBaru(e.target.value)}
+												/>
+												<Form.Text className='text-muted'>
+													ID Sorting tidak dapat diubah, silahkan hapus data
+													jika ingin mengubah data. Data premium dan standard
+													akan otomatis terhapus semua!
+												</Form.Text>
+											</Form.Group>
+											<Form.Group className='mt-2'>
+												<Form.Label>Berat (kg)</Form.Label>
+												<Form.Control
+													type='number'
+													placeholder='Masukkkan Berat'
+													defaultValue={dataDetailPanen.berat_sorting}
+													onChange={e => setBeratBagusBaru(e.target.value)}
+												/>
+											</Form.Group>
+											<Form.Group className='my-3'>
+												<Form.Label>Tanggal sorting</Form.Label>
+												<Form.Control
+													placeholder='Masukkkan tanggal panen'
+													defaultValue={dataDetailPanen.tanggal_sorting}
+													onChange={e => setTanggalSorting(e.target.value)}
+												/>
+											</Form.Group>
+										</div>
+									</div>
+									<div className='row mx-1 d-flex justify-content-between mt-3'>
+										<div className='w-auto'>
+											{/* <Button variant='primary' type='submit' className='px-4'>
+												Edit & Simpan
+											</Button> */}
+											<Button
+												variant='danger'
+												className='px-4 ms-5'
+												onClick={() => {
+													const confirmDelete = window.confirm(
+														`Apakah anda yakin, menghapus SEMUA data sorting dari ID Panen: ${dataDetailPanen.id_panen}?`
+													);
+													if (confirmDelete) {
+														fetch(`${urlPost}sorting/hapusdata.php/`, {
+															method: 'POST',
+															body: JSON.stringify({
+																id_panen: dataDetailPanen.id_panen,
+															}),
+														})
+															.then(response => response.json())
+															.then(response => {
+																if (response.status === '1') {
+																	setModalDetail(false);
+																	alert('Data berhasil dihapus!');
+																	window.location.reload();
+																} else if (response.status === '0') {
+																	alert(response.pesan);
+																} else {
+																	alert('Ada kesalahan, silahkan coba lagi!');
+																}
+															})
+															.catch(err => {
+																alert('Ada kesalahan, silahkan coba lagi!');
+															});
+													}
+												}}>
+												Hapus
+											</Button>
+										</div>
+									</div>
+								</Form>
+							</div>
+						</div>
+						<div className='col-6'>
+							<div className='card'>
+								<div className='card-body shadow bg-white rounded'>
+									<h5 className='text-center'>Detail data panen</h5>
+									<div className='table-responsive'>
+										<table className='table table-bordered'>
+											<tbody>
+												<tr>
+													<th scope='row'>ID Panen</th>
+													<td>{dataDetailPanen.id_panen}</td>
+												</tr>
+												<tr>
+													<th scope='row'>Berat</th>
+													<td>{dataDetailPanen.berat} kg</td>
+												</tr>
+												<tr>
+													<th scope='row'>Tanggal panen</th>
+													<td>{dataDetailPanen.tanggal_panen}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</Modal.Body>
+			</Modal>
+
 			<Header />
 			<div className='container card p-4 mt-3'>
 				<div className='card-body shadow bg-white rounded'>
@@ -290,7 +424,7 @@ export const Sorting = () => {
 						transition={true}
 						id='noanim-tab-example'
 						className='mb-3'>
-						<Tab eventKey='SortingBagus' title='Sortingan Bagus'>
+						<Tab eventKey='SortingBagus' title='Sortingan Premium'>
 							<Table striped bordered hover className='text-center'>
 								<thead>
 									<tr>
@@ -316,7 +450,24 @@ export const Sorting = () => {
 															{item.nama_pengguna}
 														</td>
 														<td className='align-middle'>
-															<button className='btn btn-warning'>
+															<button
+																className='btn btn-warning'
+																onClick={() => {
+																	fetch(
+																		`${urlPost}sorting/getidsortingbagus.php/`,
+																		{
+																			method: 'POST',
+																			body: JSON.stringify({
+																				id_sorting: item.id_sorting,
+																			}),
+																		}
+																	)
+																		.then(response => response.json())
+																		.then(response => {
+																			setDataDetailPanen(response);
+																			setModalDetail(true);
+																		});
+																}}>
 																Detail
 															</button>
 														</td>
@@ -326,13 +477,13 @@ export const Sorting = () => {
 										</>
 									) : (
 										<>
-											<h3 className='mt-3 w-100'>Loading...</h3>
+											<h3 className='mt-3 w-100'>Tidak ada data...</h3>
 										</>
 									)}
 								</tbody>
 							</Table>
 						</Tab>
-						<Tab eventKey='SortingJelek' title='Sortingan Jelek'>
+						<Tab eventKey='SortingJelek' title='Sortingan Standard'>
 							<Table striped bordered hover className='text-center'>
 								<thead>
 									<tr>
@@ -368,7 +519,7 @@ export const Sorting = () => {
 										</>
 									) : (
 										<>
-											<h3 className='mt-3 w-100'>Loading...</h3>
+											<h3 className='mt-3 w-100'>Tidak ada data...</h3>
 										</>
 									)}
 								</tbody>

@@ -6,6 +6,8 @@ import Login from '../src/pages/login';
 import Dashboard from '../src/pages/dashboard/dashboard';
 import { Panen } from './pages/panen/panen';
 import { Sorting } from './pages/sorting/sorting';
+import { PengolahanBagus } from './pages/pengolahan/pengolahanbagus';
+import { PengolahanJelek } from './pages/pengolahan/pengolahanjelek';
 
 function App() {
 	return (
@@ -18,6 +20,16 @@ function App() {
 							<Route exact path='/dashboard' element={<Dashboard />} />
 							<Route exact path='/panen' element={<Panen />} />
 							<Route exact path='/sorting' element={<Sorting />} />
+							<Route
+								exact
+								path='/pengolahanpremium'
+								element={<PengolahanBagus />}
+							/>
+							<Route
+								exact
+								path='/pengolahanstandard'
+								element={<PengolahanJelek />}
+							/>
 						</>
 					) : (
 						<Route path='/logindulu' element={<LoginDulu />} />
