@@ -8,6 +8,7 @@ body {
   background-attachment: fixed;
   opacity: 0.95;
   font-family: "Rubik", sans-serif;
+  font-size: small;
 }
 
 .App {

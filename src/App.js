@@ -6,13 +6,16 @@ import Login from '../src/pages/login';
 import Dashboard from '../src/pages/dashboard/dashboard';
 import { Panen } from './pages/panen/panen';
 import { Sorting } from './pages/sorting/sorting';
-import { PengolahanBagus } from './pages/pengolahan/pengolahanbagus';
-import { PengolahanJelek } from './pages/pengolahan/pengolahanjelek';
+import { Pengolahan } from './pages/pengolahan/pengolahan';
+import { Stok } from './pages/stok/stok';
+import { DashboardMaster } from './pages/master/dashboardmaster';
+import { Cuaca } from './pages/cuaca/cuaca';
+import { Penjualan } from './pages/penjualan/penjualan';
 
 function App() {
 	return (
 		<BrowserRouter>
-			<div>
+			<>
 				<Routes>
 					<Route exact path='/' element={<Login />} />
 					{Cookies.get('jabatan') === '1' ? (
@@ -20,16 +23,11 @@ function App() {
 							<Route exact path='/dashboard' element={<Dashboard />} />
 							<Route exact path='/panen' element={<Panen />} />
 							<Route exact path='/sorting' element={<Sorting />} />
-							<Route
-								exact
-								path='/pengolahanpremium'
-								element={<PengolahanBagus />}
-							/>
-							<Route
-								exact
-								path='/pengolahanstandard'
-								element={<PengolahanJelek />}
-							/>
+							<Route exact path='/pengolahan' element={<Pengolahan />} />
+							<Route exact path='/stok' element={<Stok />} />
+							<Route exact path='/masterdata' element={<DashboardMaster />} />
+							<Route exact path='/cuaca' element={<Cuaca />} />
+							<Route exact path='/penjualan' element={<Penjualan />} />
 						</>
 					) : (
 						<Route path='/logindulu' element={<LoginDulu />} />
@@ -37,7 +35,7 @@ function App() {
 					<Route exact path='/salah' element={<Salah />} />
 					<Route path='*' element={<Login />} />
 				</Routes>
-			</div>
+			</>
 		</BrowserRouter>
 	);
 }

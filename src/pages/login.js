@@ -4,18 +4,21 @@ import Cookies from 'js-cookie';
 import { apiPost } from '../data/api';
 import { useNavigate } from 'react-router-dom';
 import { useAtom } from 'jotai';
+import PropagateLoader from 'react-spinners/PropagateLoader';
 
 export default function Login() {
 	let navigate = useNavigate();
 	const [urlPost, setUrlPost] = useAtom(apiPost);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [loading, setLoading] = useState(false);
 
 	const formLogin = new FormData();
 	formLogin.append('nama_pengguna', username);
 	formLogin.append('password', password);
 
 	const handleSubmit = () => {
+		setLoading(true);
 		fetch(`${urlPost}login.php`, {
 			method: 'POST',
 			body: formLogin,
@@ -26,11 +29,17 @@ export default function Login() {
 				Cookies.set('id_pengguna', response.id_pengguna);
 				Cookies.set('jabatan', response.jabatan);
 				if (response.jabatan === '1') {
+					setLoading(false);
 					navigate('/dashboard');
 					window.location.reload();
 				} else {
 					navigate('/salah');
 				}
+			})
+			.catch(err => {
+				setLoading(false);
+				alert(err);
+				console.log(err);
 			});
 	};
 
@@ -79,9 +88,21 @@ export default function Login() {
 								}}
 							/>
 						</Form.Group>
-						<Button variant='primary' type='submit' className='mt-4 w-100'>
-							Masuk
-						</Button>
+						{loading ? (
+							<div className='py-5 h-auto text-center d-block'>
+								<PropagateLoader
+									color={'#005A04 '}
+									loading={loading}
+									size={30}
+									aria-label='Loading Spinner'
+									data-testid='loader'
+								/>
+							</div>
+						) : (
+							<Button variant='primary' type='submit' className='mt-4 w-100'>
+								Masuk
+							</Button>
+						)}
 					</Form>
 				</Card>
 			</div>

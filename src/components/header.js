@@ -22,7 +22,7 @@ export const Header = () => {
 
 	return (
 		<>
-			<Modal
+			{/* <Modal
 				show={pilihPengolahan}
 				onHide={() => setPilihPengolahan(false)}
 				size='md'
@@ -53,7 +53,7 @@ export const Header = () => {
 						</div>
 					</div>
 				</Modal.Body>
-			</Modal>
+			</Modal> */}
 			<div className='container-fluid mt-3'>
 				<nav className='navbar navbar-expand-lg navbar-light bg-white shadow-md'>
 					<div className='container-fluid py-2 px-4'>
@@ -113,26 +113,38 @@ export const Header = () => {
 								<a
 									className='sd-link'
 									onClick={() => {
-										setPilihPengolahan(true);
+										navigate('/pengolahan');
 									}}>
 									<i className='fa fa-folder-open-o' aria-hidden='true'></i>{' '}
 									Data Pengolahan Kopi
 								</a>
 							</li>
 							<li className='my-2'>
-								<a className='sd-link'>
+								<a
+									className='sd-link'
+									onClick={() => {
+										navigate('/stok');
+									}}>
 									<i className='fa fa-folder-open-o' aria-hidden='true'></i>{' '}
 									Data Stok Kopi
 								</a>
 							</li>
 							<li className='my-2'>
-								<a className='sd-link'>
+								<a
+									className='sd-link'
+									onClick={() => {
+										navigate('/penjualan');
+									}}>
 									<i className='fa fa-folder-open-o' aria-hidden='true'></i>{' '}
 									Data Penjualan Kopi
 								</a>
 							</li>
 							<li className='my-2'>
-								<a className='sd-link'>
+								<a
+									className='sd-link'
+									onClick={() => {
+										navigate('/masterdata');
+									}}>
 									<i className='fa fa-book' aria-hidden='true'></i> Master Data
 								</a>
 							</li>
@@ -140,7 +152,11 @@ export const Header = () => {
 								<a
 									className='sd-link'
 									target='_blank'
-									href='https://www.timeanddate.com/weather/@8174582/historic'>
+									onClick={() => {
+										navigate('/cuaca');
+									}}
+									//href='https://www.timeanddate.com/weather/@8174582/historic'
+								>
 									{' '}
 									<i className='fa fa-info-circle' aria-hidden='true'></i> Info
 									Cuaca

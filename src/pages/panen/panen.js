@@ -320,7 +320,9 @@ export const Panen = () => {
 							</Table>
 						) : (
 							<>
-								<h3 className='mt-3 w-100'>Tidak ada data panen...</h3>
+								<h3 className='mt-3 w-100'>
+									Tidak ada data panen, coba refresh...
+								</h3>
 							</>
 						)}
 					</div>

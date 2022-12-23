@@ -359,12 +359,12 @@ export const Sorting = () => {
 															.then(response => {
 																if (response.status === '1') {
 																	setModalDetail(false);
-																	alert('Data berhasil dihapus!');
+																	alert(response.json());
 																	window.location.reload();
 																} else if (response.status === '0') {
 																	alert(response.pesan);
 																} else {
-																	alert('Ada kesalahan, silahkan coba lagi!');
+																	alert(response.pesan);
 																}
 															})
 															.catch(err => {
@@ -477,7 +477,9 @@ export const Sorting = () => {
 										</>
 									) : (
 										<>
-											<h3 className='mt-3 w-100'>Tidak ada data...</h3>
+											<h3 className='mt-3 w-100'>
+												Tidak ada data, coba refresh...
+											</h3>
 										</>
 									)}
 								</tbody>
@@ -509,7 +511,24 @@ export const Sorting = () => {
 															{item.nama_pengguna}
 														</td>
 														<td className='align-middle'>
-															<button className='btn btn-warning'>
+															<button
+																className='btn btn-warning'
+																onClick={() => {
+																	fetch(
+																		`${urlPost}sorting/getidsortingjelek.php/`,
+																		{
+																			method: 'POST',
+																			body: JSON.stringify({
+																				id_sorting: item.id_sorting,
+																			}),
+																		}
+																	)
+																		.then(response => response.json())
+																		.then(response => {
+																			setDataDetailPanen(response);
+																			setModalDetail(true);
+																		});
+																}}>
 																Detail
 															</button>
 														</td>
@@ -519,7 +538,9 @@ export const Sorting = () => {
 										</>
 									) : (
 										<>
-											<h3 className='mt-3 w-100'>Tidak ada data...</h3>
+											<h3 className='mt-3 w-100'>
+												Tidak ada data, coba refresh...
+											</h3>
 										</>
 									)}
 								</tbody>
