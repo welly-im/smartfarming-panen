@@ -73,8 +73,8 @@ export default function Dashboard() {
 								<div className='col-md-4'>
 									<div className='card'>
 										<div className='card-body shadow bg-white rounded'>
-											<h5 className='card-title m-0'>Kopi Sorting Bagus</h5>
-											<p className='card-text'>Hasil sortingan bagus</p>
+											<h5 className='card-title m-0'>Kopi Sorting Premium</h5>
+											<p className='card-text'>Hasil sortingan premium</p>
 											<h1 className='card-text'>
 												{data && data.total_sorting_bagus !== null ? (
 													<>
@@ -104,8 +104,8 @@ export default function Dashboard() {
 								<div className='col-md-4'>
 									<div className='card'>
 										<div className='card-body shadow bg-white rounded'>
-											<h5 className='card-title m-0'>Kopi Sorting Jelek</h5>
-											<p className='card-text'>Hasil sortingan jelek</p>
+											<h5 className='card-title m-0'>Kopi Sorting Standard</h5>
+											<p className='card-text'>Hasil sortingan standard</p>
 											<h1 className='card-text'>
 												{data && data.total_sorting_jelek !== null ? (
 													<>

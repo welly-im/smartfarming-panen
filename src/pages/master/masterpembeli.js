@@ -249,7 +249,7 @@ export const MasterPembeli = () => {
 												});
 										}
 									}}>
-									Delete
+									Hapus
 								</button>
 							</td>
 						</tr>

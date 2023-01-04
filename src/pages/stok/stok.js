@@ -105,6 +105,13 @@ export const Stok = () => {
 			});
 	};
 
+	// const editStok = () => {
+	// 	fetch(`${urlPost}stok/editstok.php`, {
+	// 		method: 'POST',
+	// 		body: JSON.stringify({
+	// 			id_stok: dataDetailStok.id_stok,
+	// 			tanggal_masuk: dataDetailStok.tanggal_masuk,
+
 	return (
 		<>
 			<Modal
@@ -583,7 +590,7 @@ export const Stok = () => {
 												</td>
 												<td className='align-middle'>{item.tanggal_masuk}</td>
 												<td className='align-middle'>{item.grade}</td>
-												<td className='align-middle'>{item.info_stok}</td>
+												<td className='align-middle'>{item.keterangan}</td>
 												<td className='align-middle'>{item.nama_pengguna}</td>
 												<td className='align-middle'>
 													<button
@@ -603,7 +610,21 @@ export const Stok = () => {
 																	'Apakah anda yakin ingin menghapus data stok ini?'
 																)
 															) {
-																alert('Data stok berhasil dihapus');
+																fetch(`${urlPost}stok/hapusstok.php`, {
+																	method: 'POST',
+																	body: JSON.stringify({
+																		id_stok: item.id_stok,
+																	}),
+																})
+																	.then(response => response.json())
+																	.then(response => {
+																		if (response.status === '1') {
+																			alert(response.pesan);
+																			window.location.reload();
+																		} else {
+																			alert(response.pesan);
+																		}
+																	});
 															}
 														}}>
 														Hapus Stok

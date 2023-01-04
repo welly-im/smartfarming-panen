@@ -77,6 +77,8 @@ export const MasterPengguna = () => {
 			});
 	};
 
+	console.log(dataTambah);
+
 	return (
 		<>
 			<Modal
@@ -103,6 +105,7 @@ export const MasterPengguna = () => {
 								<Form.Control
 									type='text'
 									onChange={e => {
+										// console.log(dataTambah);
 										setDataTambah({
 											...dataTambah,
 											nama_pengguna: e.target.value,
@@ -436,7 +439,7 @@ export const MasterPengguna = () => {
 												});
 										}
 									}}>
-									Delete
+									Hapus
 								</button>
 							</td>
 						</tr>

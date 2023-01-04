@@ -177,7 +177,7 @@ export const Panen = () => {
 								/>
 							</Form.Group>
 							<Button variant='primary' type='submit' className='px-4'>
-								Submit
+								Simpan
 							</Button>
 						</Form>
 					</div>
@@ -209,6 +209,7 @@ export const Panen = () => {
 									type='text'
 									placeholder='Masukkkan ID Panen'
 									value={idPanenEdit}
+									disabled
 								/>
 								<Form.Text className='text-muted'>
 									ID Panen tidak dapat diubah, silahkan hapus data jika ingin
@@ -220,7 +221,8 @@ export const Panen = () => {
 								<Form.Control
 									type='number'
 									placeholder='Masukkkan Berat'
-									defaultValue={beratPanenEdit}
+									value={beratPanenEdit}
+									disabled
 									onChange={e => setBeratPanenEdit(e.target.value)}
 								/>
 							</Form.Group>
