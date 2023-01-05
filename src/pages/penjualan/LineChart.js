@@ -47,7 +47,7 @@ export const LineChart = () => {
 			});
 	}, []);
 
-	const labels = data.map(item => item.tahun).reverse();
+	const labels = data.map(item => item.tanggal_penjualan).reverse();
 	const dataGraph = {
 		labels,
 		datasets: [
