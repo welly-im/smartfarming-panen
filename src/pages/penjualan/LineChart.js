@@ -47,10 +47,7 @@ export const LineChart = () => {
 			});
 	}, []);
 
-	const labels = data
-		.map(item => item.tanggal_penjualan)
-		.reverse()
-		.filter((item, index, self) => self.indexOf(item) === index);
+	const labels = data.map(item => item.tahun).reverse();
 	const dataGraph = {
 		labels,
 		datasets: [
