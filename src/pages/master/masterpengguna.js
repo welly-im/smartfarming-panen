@@ -387,7 +387,7 @@ export const MasterPengguna = () => {
 						<th className='align-middle'>No telepon</th>
 						<th className='align-middle'>Jenis kelamin</th>
 						<th className='align-middle'>Jabatan</th>
-						<th className='align-middle'>Password</th>
+						<th className='align-middle'>Kata sandi</th>
 						<th></th>
 					</tr>
 				</thead>
