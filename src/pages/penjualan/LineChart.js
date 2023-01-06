@@ -38,32 +38,35 @@ export const LineChart = () => {
 	const [urlGet, setUrlGet] = useAtom(apiGet);
 	const [urlPost, setUrlPost] = useAtom(apiPost);
 	const [data, setData] = useState([]);
+	const [data1, setData1] = useState([]);
+	const [data2, setData2] = useState([]);
+	const [data3, setData3] = useState([]);
 
 	useEffect(() => {
-		fetch(`${urlGet}getdatakopiterjual`)
+		fetch(`${urlGet}getdatagrafik`)
 			.then(response => response.json())
 			.then(response => {
 				setData(response.data);
 			});
 	}, []);
 
-	const labels = data.map(item => item.tanggal_penjualan).reverse();
+	const labels = data.map(item => item.tahun);
 	const dataGraph = {
 		labels,
 		datasets: [
 			{
 				label: 'Grade A',
-				data: data.map(item => item.grade_a).reverse(),
+				data: data.map(item => item.grade_a),
 				backgroundColor: 'rgba(255, 99, 132, 1)',
 			},
 			{
 				label: 'Grade B',
-				data: data.map(item => item.grade_b).reverse(),
+				data: data.map(item => item.grade_b),
 				backgroundColor: 'rgba(53, 162, 235, 1)',
 			},
 			{
 				label: 'Grade C',
-				data: data.map(item => item.grade_c).reverse(),
+				data: data.map(item => item.grade_c),
 				backgroundColor: 'rgba(255, 206, 86, 1)',
 			},
 		],
