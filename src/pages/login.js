@@ -28,12 +28,18 @@ export default function Login() {
 				Cookies.set('nama_pengguna', response.nama_pengguna);
 				Cookies.set('id_pengguna', response.id_pengguna);
 				Cookies.set('jabatan', response.jabatan);
-				if (response.jabatan === '1') {
-					setLoading(false);
-					navigate('/dashboard');
-					window.location.reload();
+				if (response.status === '1') {
+					if (response.jabatan === '1') {
+						setLoading(false);
+						navigate('/dashboard');
+						window.location.reload();
+					} else {
+						alert('Anda tidak memiliki akses!');
+						window.location.reload();
+					}
 				} else {
-					navigate('/salah');
+					alert('Nama pengguna dan kata sandi Anda salah!');
+					window.location.reload();
 				}
 			})
 			.catch(err => {
