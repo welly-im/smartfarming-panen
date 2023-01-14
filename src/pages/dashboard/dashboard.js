@@ -19,6 +19,7 @@ export default function Dashboard() {
 		total_berat_kopi_tanpa_kulit_grade_2: '0',
 		total_berat_kopi_tanpa_kulit_grade_3: '0',
 	});
+	const [year, setYear] = useState('');
 
 	useEffect(() => {
 		axios
@@ -29,6 +30,10 @@ export default function Dashboard() {
 			.catch(err => {
 				console.log(err);
 			});
+		//get year now
+		const date = new Date();
+		const yearNow = date.getFullYear();
+		setYear(yearNow);
 	}, []);
 
 	return (
@@ -43,7 +48,7 @@ export default function Dashboard() {
 									<div className='card'>
 										<div className='card-body shadow bg-white rounded'>
 											<h5 className='card-title m-0'>Kopi Dipanen</h5>
-											<p className='card-text'>Hasil panen kopi</p>
+											<p className='card-text'>Hasil panen kopi ({year})</p>
 											<h1 className='card-text'>
 												{data && data.total_berat !== null ? (
 													<>
@@ -74,7 +79,9 @@ export default function Dashboard() {
 									<div className='card'>
 										<div className='card-body shadow bg-white rounded'>
 											<h5 className='card-title m-0'>Kopi Sorting Premium</h5>
-											<p className='card-text'>Hasil sortingan premium</p>
+											<p className='card-text'>
+												Hasil sortingan premium ({year})
+											</p>
 											<h1 className='card-text'>
 												{data && data.total_sorting_bagus !== null ? (
 													<>
@@ -105,7 +112,9 @@ export default function Dashboard() {
 									<div className='card'>
 										<div className='card-body shadow bg-white rounded'>
 											<h5 className='card-title m-0'>Kopi Sorting Standard</h5>
-											<p className='card-text'>Hasil sortingan standard</p>
+											<p className='card-text'>
+												Hasil sortingan standard ({year})
+											</p>
 											<h1 className='card-text'>
 												{data && data.total_sorting_jelek !== null ? (
 													<>

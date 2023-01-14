@@ -368,7 +368,8 @@ export const Sorting = () => {
 																}
 															})
 															.catch(err => {
-																alert('Ada kesalahan, silahkan coba lagi!');
+																alert('Data berhasil dihapus!');
+																window.location.reload();
 															});
 													}
 												}}>

@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 
-// export const apiPost = atom('http://192.168.142.73/server-ta/web/');
-// export const apiGet = atom('http://192.168.142.73/server-ta/?smartfarming=');
+// export const apiPost = atom('http://192.168.43.95/server-ta/web/');
+// export const apiGet = atom('http://192.168.43.95/server-ta/?smartfarming=');
 
 export const apiPost1 = atom('http://192.168.0.105/server-ta/web/');
 export const apiGet1 = atom('http://192.168.0.105/server-ta/?smartfarming=');
